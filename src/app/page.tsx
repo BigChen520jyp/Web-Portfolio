@@ -265,21 +265,25 @@ export default function Home() {
       {/* Resume Section */}
       <section id="resume" className="py-20 px-4 sm:px-6 lg:px-8 bg-foreground/5">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-8">Resume</h2>
-          <p className="text-lg mb-8 text-foreground/70">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Resume</h2>
+          <p className="text-lg mb-4 text-foreground/70">
             Take a look at my full resume to learn more about my experience and qualifications.
           </p>
           <div className="bg-background rounded-lg p-8 shadow-lg">
-            <div className="aspect-[8.5/11] relative mb-6">
-              <iframe
-                src="/resume.pdf#view=FitH"
-                className="w-full h-full absolute inset-0 rounded-lg"
-                style={{ minHeight: '600px' }}
+            <div className="relative mb-6 w-full max-w-3xl mx-auto">
+              <Image
+                src="/JustinChen_ResumeSoftwareSummer2025Toronto.jpg"
+                alt="Justin Chen's Resume"
+                width={1000}
+                height={1294}
+                className="rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300"
+                priority
               />
             </div>
             <a
-              href="/resume.pdf"
-              download="Justin_Chen_Resume.pdf"
+              href="/JustinChen_ResumeSoftwareSummer2025Toronto.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-foreground text-background px-8 py-3 rounded-lg hover:bg-foreground/90 transition-colors"
             >
               <svg 
@@ -294,7 +298,7 @@ export default function Home() {
                   clipRule="evenodd" 
                 />
               </svg>
-              Download Resume
+              View Full Resume
             </a>
           </div>
         </div>
