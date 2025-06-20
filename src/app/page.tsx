@@ -1,6 +1,7 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
 import Image from "next/image";
+import { useRouter } from 'next/navigation';
 
 interface ProjectData {
   id: number;
@@ -69,6 +70,28 @@ export default function Home() {
   const projectsSectionRef = useRef<HTMLElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInitialMount, setIsInitialMount] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    // Scroll to top on page load with smooth behavior
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant'
+    });
+
+    // Handle client-side navigation
+    const handleRouteChange = () => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'instant'
+      });
+    };
+
+    window.addEventListener('popstate', handleRouteChange);
+    return () => window.removeEventListener('popstate', handleRouteChange);
+  }, []); // Empty dependency array means this runs once on mount
 
   useEffect(() => {
     if (isInitialMount) {
@@ -95,6 +118,32 @@ export default function Home() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isInitialMount]);
+
+  // Auto-trigger contact icons animation after 5 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const emailIcon = document.getElementById('email-icon');
+      const linkedinIcon = document.getElementById('linkedin-icon');
+      const githubIcon = document.getElementById('github-icon');
+
+      // Remove and re-add classes to restart animations
+      emailIcon?.classList.remove('highlight-email');
+      linkedinIcon?.classList.remove('highlight-linkedin');
+      githubIcon?.classList.remove('highlight-github');
+
+      // Trigger reflow
+      void emailIcon?.offsetWidth;
+      void linkedinIcon?.offsetWidth;
+      void githubIcon?.offsetWidth;
+
+      // Add animation classes
+      emailIcon?.classList.add('highlight-email');
+      linkedinIcon?.classList.add('highlight-linkedin');
+      githubIcon?.classList.add('highlight-github');
+    }, 5000); // 5 seconds delay
+
+    return () => clearTimeout(timer);
+  }, []); // Empty dependency array means this runs once on mount
 
   const toggleProject = (projectId: number) => {
     setExpandedProject(expandedProject === projectId ? null : projectId);
